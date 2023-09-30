@@ -4,7 +4,7 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 const app = express();
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT; 
 
 dotenv.config();
 
