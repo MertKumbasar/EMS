@@ -1,0 +1,43 @@
+<%- include("partials/header.ejs") %>
+
+
+<form action="/total/serach" class="row gx-4 center-div" method="post">
+    <div class="col-auto">
+        <select name="id" class="form-select" aria-label="Default select example">
+            <option selected>Enter ID to filter</option>
+            <% emp_id_list.forEach(element => { %>
+                <option value=<%=element.EmpID %>><%=element.EmpName%> <%=element.EmpSurname %></option>
+            <% }); %>    
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary btn-hover mb-3">submit</button>
+    </div>
+</form>
+
+<body>
+    <% if(locals.totalWork_list){ %>
+        <div class="container">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Total Work Time</th>
+                    <th scope="col">Date</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                    <% totalWork_list.forEach(element => { %>
+                        <tr>
+                            <th scope="row"><%= emp_id_list[emp_id_list.findIndex(obj => obj.EmpID===element.ID)].EmpName %>
+                            <%= emp_id_list[emp_id_list.findIndex(obj => obj.EmpID===element.ID)].EmpSurname %> </th>
+                            <td><%= element.total_work_time %></td>
+                            <td><%= element.date %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>    
+        <% } %>
+                     
+</body>

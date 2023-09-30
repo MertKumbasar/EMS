@@ -1,0 +1,70 @@
+<%- include("partials/header.ejs") %>
+
+<body>
+    
+    <form action="/getEmpInfo" class="row gx-4 center-div" method="post">
+        <div class="col-auto">
+            <select name="id" class="form-select" aria-label="Default select example">
+                <option selected>Enter ID to add working hour</option>
+                <% emp_id_list.forEach(element => { %>
+                    <option value=<%=element.EmpID%>><%= element.EmpName%> <%= element.EmpSurname%></option>
+                <% }); %>    
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary btn-hover mb-3">submit</button>
+        </div>
+    </form>
+
+    <% if(locals.emp_info){ %>
+      <div class="row center-div">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title"><%= emp_info.EmpName %> <%= emp_info.EmpSurname %></h5>
+                <ul class="list-group list-group-flush" style="margin-bottom: 20px;">
+                    <li class="list-group-item">ID: <strong> <%= emp_info.EmpID %> </strong></li>
+                    <li class="list-group-item">Enterance: <strong><%=registerTime_list[0].card_time %> </strong> </li>
+                    <li class="list-group-item">Exit: <strong><%=registerTime_list[1].card_time %>  </strong> </li>
+                </ul>
+                <form action="/getEmpInfo/addDb/<%= emp_info.EmpID %>" method="post">
+                    <button type="submit" class="btn btn-primary btn-hover mb-3">Add to Total work</button>
+                </form>
+                
+                </div>
+            </div>
+        </div>
+    <%}else if(locals.emp_list){ %>
+        <div class="container">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                    <% emp_list.forEach(element => { %>
+                        <tr>
+                            <th scope="row"><%= element.EmpID %></th>
+                            <td><%= element.EmpName %></td>
+                            <td><%= element.EmpSurname %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>  
+    <% } else { %>
+        <div class="container center-div" style="margin-top: 40px;">
+            <div class="row">
+                <div class="col-auto alert alert-info" role="alert">
+                    <strong> <%= message %> </strong>
+                </div> 
+            </div>
+        </div>  
+    <% } %>   
+          
+  
+</body>
+
+</html>
